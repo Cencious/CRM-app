@@ -12,10 +12,16 @@
             <a class="btn btn-primary btn-sm btn-block" href="">create Customer</a>
             <table class="table table-sm">
                 <tr>
-                    <th></th>
+                   
                     <th>Customer</th>
-                    <th>Orders</th>
+                    <th>Phone</th>
                 </tr>
+                {% for customer in customers%}
+                <tr>
+                    <td>{{customer.name}} </td>
+                    <td>{{customer.phone}} </td>
+                </tr>
+                {% endfor%}
 
             </table>
 
