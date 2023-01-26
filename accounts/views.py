@@ -37,9 +37,21 @@ def createOrder(request):
         # print('printing POST:',request.POST)
         form = OrderForm(request.POST)
         if form.is_valid():
-            form.save
+            form.save()
             return redirect('/')
 
     
     context={'form': form}
     return render(request,'accounts/order_form.html',context)
+
+def updateOrder(request, pk):
+    order =Order.objects.get(id=pk) #to prefil the form, query item from here.
+    form = OrderForm(instance=order)
+    if request.method == 'POST':
+        form = OrderForm(request.POST, instance=order) 
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    context={'form': form}
+    return render(request,'accounts/order_form.html',context)
+
