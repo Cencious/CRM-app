@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.forms import inlineformset_factory
 from .models import *
 from .forms import OrderForm
 
@@ -33,7 +34,7 @@ def customer(request, pk):
 
 def createOrder(request, pk):
     customers = Customer.objects.get(id=pk)
-    form = OrderForm(initial=('customers'))
+    form = OrderForminitial=({'customers':customers})
     if request.method == 'POST':
         # print('printing POST:',request.POST)
         form = OrderForm(request.POST)
