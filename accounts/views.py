@@ -35,7 +35,8 @@ def customer(request, pk):
 def createOrder(request, pk):
     OrderFormSet =inlineformset_factory(Customer, Order, fields= ('products', 'status'))
     customers = Customer.objects.get(id=pk)
-    form = OrderForminitial=({'customers':customers})
+    formset = OrderFormSet(instance=customers)
+    # form = OrderForminitial=({'customers':customers})
     if request.method == 'POST':
         # print('printing POST:',request.POST)
         form = OrderForm(request.POST)
