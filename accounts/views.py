@@ -33,6 +33,7 @@ def customer(request, pk):
     return render(request,'accounts/customer.html', context)
 
 def createOrder(request, pk):
+    
     customers = Customer.objects.get(id=pk)
     form = OrderForminitial=({'customers':customers})
     if request.method == 'POST':
