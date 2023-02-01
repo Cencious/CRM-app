@@ -30,7 +30,7 @@ def customer(request, pk):
     orders= customers.order_set.all()
     order_count = orders.count()
 
-    myfilter = OrderFilter()
+    myfilter = OrderFilter(request.GET, queryset=orders)
     context={'customers': customers, 'orders': orders, 'order_count': order_count, 'myfilter': myfilter}
     return render(request,'accounts/customer.html', context)
 
