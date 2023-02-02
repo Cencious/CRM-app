@@ -4,6 +4,8 @@ from django.forms import inlineformset_factory
 from .models import *
 from .forms import OrderForm
 from .filters import OrderFilter
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 # Create your views here.
 def home(request):
@@ -20,9 +22,17 @@ def home(request):
     return render(request,'accounts/dashboard.html', context)
 
 def products(request):
-    products = Product.objects.all()
+    products = Product.objects.all().order_by('name')
+    page = request.GET.get('page', 1)
+    paginator = Paginator(products,3)
+    try:
+        products = paginator.page(page)
+    except PageNotAnInteger: 
+        products = paginator.page(1)
+    except EmptyPage:
+        products = paginator.page(paginator.num_pages)
 
-    return render(request,'accounts/products.html',{'products':products})
+    return render(request,'accounts/products.html',{'products':products, 'page':page})
 
 def customer(request, pk):
     customers = Customer.objects.get(id=pk) 
