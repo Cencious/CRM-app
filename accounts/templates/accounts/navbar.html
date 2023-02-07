@@ -1,4 +1,12 @@
 {% load static%}
+<style>
+  .hello-msg{
+    font-size: 18px;
+    color: #fff;
+    margin-right: 20px;
+
+  }
+</style>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <img src="{% static 'images/ce.png' %}" alt="">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -13,7 +21,9 @@
           <a class="nav-link" href="{% url 'products' %}">Products</a>
         </li>
     
-       
       </ul>
     </div>
+    <span class="hello-msg">Hello,{{request.user}} </span>
+    <span></span>
+    <a href=" {% url 'logout' %} ">logout</a>
   </nav>
