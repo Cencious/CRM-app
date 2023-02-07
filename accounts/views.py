@@ -29,7 +29,9 @@ def registerPage(request):
     return render(request, 'accounts/register.html', context)
 
 def loginPage(request):
-    
+    if request.method == 'POST':
+        request.POST.get('username')
+        request.POST.get('password')
     context ={}
     return render(request, 'accounts/login.html', context)
 
