@@ -30,8 +30,12 @@ def registerPage(request):
 
 def loginPage(request):
     if request.method == 'POST':
-        request.POST.get('username')
-        request.POST.get('password')
+        username= request.POST.get('username')
+        password= request.POST.get('password')
+
+        user = authenticate(request, username= username, password= password)
+
+        
     context ={}
     return render(request, 'accounts/login.html', context)
 
