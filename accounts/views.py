@@ -43,10 +43,11 @@ def loginPage(request):
             messages.info(request,'Username OR password is incorrect')
             
 
-
     context ={}
     return render(request, 'accounts/login.html', context)
 
+def logoutUser(request): 
+    return redirect('login')
 
 def home(request):
     orders = Order.objects.all()
