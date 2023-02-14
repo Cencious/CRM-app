@@ -6,6 +6,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
+from .decorators import unauthenticated_user
+
 from .models import *
 from .forms import OrderForm, CreateUserForm
 from .filters import OrderFilter
@@ -16,42 +18,40 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 
+@unauthenticated_user
 def registerPage(request):
-    if request.user.is_authenticated:
-        return redirect('home')
-    else:
-        form =CreateUserForm()
+    
+    form =CreateUserForm()
 
-        if request.method == 'POST':
-            form =CreateUserForm(request.POST)
-            if form.is_valid():
-                form.save()
-                user = form.cleaned_data.get['username']
-                messages.success(request, 'Account was created for '+ user)
-                return redirect('login')
-        context ={'form':form}
-        return render(request, 'accounts/register.html', context)
+    if request.method == 'POST':
+        form =CreateUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            user = form.cleaned_data.get['username']
+            messages.success(request, 'Account was created for '+ user)
+            return redirect('login')
+    context ={'form':form}
+    return render(request, 'accounts/register.html', context)
 
+@unauthenticated_user
 def loginPage(request):
-    if request.user.is_authenticated:
-        return redirect('home')
-    else:
-        if request.method == 'POST':
-            username= request.POST.get('username')
-            password= request.POST.get('password')
+    
+    if request.method == 'POST':
+        username= request.POST.get('username')
+        password= request.POST.get('password')
 
-            user = authenticate(request, username= username, password= password)
+        user = authenticate(request, username= username, password= password)
 
-            if user is not None:
-                login(request, user)
-                return redirect('home')
+        if user is not None:
+            login(request, user)
+            return redirect('home')
 
-            else:
-                messages.info(request,'Username OR password is incorrect')
+        else:
+            messages.info(request,'Username OR password is incorrect')
                 
 
-        context ={}
-        return render(request, 'accounts/login.html', context)
+    context ={}
+    return render(request, 'accounts/login.html', context)
 
 def logoutUser(request): 
     logout(request)
@@ -74,6 +74,8 @@ def home(request):
 def userPage(request):
     context={}
     return render(request,'accounts/user.html', context)
+
+
 @login_required(login_url='login')
 def products(request):
     products = Product.objects.all().order_by('name')
