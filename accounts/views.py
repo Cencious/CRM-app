@@ -78,6 +78,7 @@ def userPage(request):
 
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin'])
 def products(request):
     products = Product.objects.all().order_by('name')
     page = request.GET.get('page', 1)
@@ -92,6 +93,7 @@ def products(request):
     return render(request,'accounts/products.html',{'products':products, 'page':page})
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin'])
 def customer(request, pk):
     customers = Customer.objects.get(id=pk) 
 
@@ -104,6 +106,7 @@ def customer(request, pk):
     return render(request,'accounts/customer.html', context)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin'])
 def createOrder(request, pk):
     OrderFormSet =inlineformset_factory(Customer, Order, fields= ('products', 'status'), extra=10)
     customers = Customer.objects.get(id=pk)
@@ -123,6 +126,7 @@ def createOrder(request, pk):
     return render(request,'accounts/order_form.html',context)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin'])
 def updateOrder(request, pk):
     order =Order.objects.get(id=pk) #to prefil the form, query item from here.
     form = OrderForm(instance=order)
@@ -135,6 +139,7 @@ def updateOrder(request, pk):
     return render(request,'accounts/order_form.html',context)
 
 @login_required(login_url='login')
+@allowed_users(allowed_roles=['Admin'])
 def deleteOrder(request, pk):#pass in a pk to delete a specific order
     #pass in item into the view
     order =Order.objects.get(id=pk)
