@@ -7,15 +7,12 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 
-from .decorators import unauthenticated_user, allowed_users,admin_only
+from .decorators import unauthenticated_user, allowed_users,admin_only 
 
 from .models import *
 from .forms import OrderForm, CreateUserForm
 from .filters import OrderFilter
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
-
-
 
 # Create your views here.
 
