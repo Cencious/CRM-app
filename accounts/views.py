@@ -5,6 +5,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group
 
 from .decorators import unauthenticated_user, allowed_users,admin_only
 
@@ -26,9 +27,15 @@ def registerPage(request):
     if request.method == 'POST':
         form =CreateUserForm(request.POST)
         if form.is_valid():
-            form.save()
-            user = form.cleaned_data.get['username']
-            messages.success(request, 'Account was created for '+ user)
+            user=form.save()
+            username = form.cleaned_data.get('username')
+
+            #query the group to associate a user to customer
+            group = Group.objects.get(name='Customer')
+            user.groups.add(group)
+
+
+            messages.success(request, 'Account was created for '+ username)
             return redirect('login')
     context ={'form':form}
     return render(request, 'accounts/register.html', context)
