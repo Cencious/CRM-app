@@ -32,4 +32,14 @@ def allowed_users(allowed_roles=[]):
 
 def admin_only(view_func):
     def wrapper_function(request, *args, **kwargs):
-        return wrapper_function
+        group = None
+        if request.user.groups.exists():
+                #set group value to first group in the list.
+            group = request.user.groups.all()[0].name
+        
+        if group == 'Customer':
+            return redirect('user-page')
+        
+        if group == 'Admin':
+            return view_func(request, *args, **kwargs) 
+    return wrapper_function
