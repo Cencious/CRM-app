@@ -75,7 +75,9 @@ def home(request):
     'delivered':delivered,'total_orders':total_orders}
 
     return render(request,'accounts/dashboard.html', context)
-
+    
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['Customer'])
 def userPage(request):
     context={}
     return render(request,'accounts/user.html', context)
