@@ -28,7 +28,7 @@ def registerPage(request):
             username = form.cleaned_data.get('username')
 
             #query the group to associate a user to customer
-            group = Group.objects.get(name='Customer')
+            group = Group.objects.get(name='customer')
             user.groups.add(group)
             # When a new user signs up they are assigned a customer profile
             customer.objects.create(
