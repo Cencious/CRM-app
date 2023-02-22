@@ -30,7 +30,10 @@ def registerPage(request):
             #query the group to associate a user to customer
             group = Group.objects.get(name='Customer')
             user.groups.add(group)
-
+            # When a new user signs up they are assigned a customer profile
+            customer.objects.create(
+                user = user,
+            )
 
             messages.success(request, 'Account was created for '+ username)
             return redirect('login')
