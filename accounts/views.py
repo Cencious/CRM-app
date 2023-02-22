@@ -81,8 +81,13 @@ def home(request):
 def userPage(request):
     #orders are relevant to customer not user
     orders = request.user.customer.order_set.all()
+    total_orders = orders.count()
+    delivered = orders.filter(status='Delivered').count()
+    pending = orders.filter(status='Pending').count()
     print('ORDERS: ', orders)
-    context={'orders': orders}
+    context={'orders': orders,  
+    'pending':pending,
+    'delivered':delivered,'total_orders':total_orders}
     return render(request,'accounts/user.html', context)
 
 
