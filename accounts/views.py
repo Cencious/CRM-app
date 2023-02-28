@@ -93,6 +93,11 @@ def userPage(request):
     'delivered':delivered,'total_orders':total_orders}
     return render(request,'accounts/user.html', context)
 
+def accountSettings(request):
+    
+    context ={}
+    return render(request,'accounts/account_settings.html', context)
+
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
