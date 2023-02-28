@@ -22,7 +22,10 @@
     </div>
     <div class="col-md-9">
         <div class="card card-body">
-            <form method="POST" action="">
+            <form method="POST" action="" enctype="multipart/form-data">
+                <!-- enctype='multipart/form-data is an encoding type that allows files to be sent through a POST. Quite simply, without this encoding the files cannot be sent through POST. If you want to allow a user to upload a file via a form, you must use this enctype. -->
+                {% csrf_token %}
+                {{form.as_p}}
                 <input class="btn btn-primary" type="submit" name="Update Information">
             </form>
         </div>
