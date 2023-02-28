@@ -10,7 +10,7 @@ from .models import Order
 class CustomerForm(ModelForm):
     class Meta:
         model = Customer
-        fields = '__All__'
+        fields = '__all__'
 
         exclude =['user'] # this excludes the user from being updated by the customer.
 
