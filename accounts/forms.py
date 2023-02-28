@@ -11,8 +11,8 @@ class CustomerForm(ModelForm):
     class Meta:
         model = Customer
         fields = '__All__'
-       
 
+        exclude =['user'] # this excludes the user from being updated by the customer.
 
 class OrderForm(ModelForm):
     class Meta:
