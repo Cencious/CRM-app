@@ -10,7 +10,7 @@ from django.contrib.auth.models import Group
 from .decorators import unauthenticated_user, allowed_users,admin_only 
 
 from .models import *
-from .forms import OrderForm, CreateUserForm
+from .forms import OrderForm, CreateUserForm, CustomerForm
 from .filters import OrderFilter
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
@@ -96,7 +96,8 @@ def userPage(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['customer'])
 def accountSettings(request):
-
+    user= request.user #gets the current logged in user
+    form = CustomerForm(instance=user)
     context ={}
     return render(request,'accounts/account_settings.html', context)
 
