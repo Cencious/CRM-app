@@ -2,11 +2,31 @@
 {% load static%}
 {%block element%}
 
+<style>
+    .profile-pic{
+        max-height: 200px;
+        max-width: 200px;
+        margin: 0 auto;
+        border-radius: 50%;
+    }
+</style>
 <div class="row">
     <div class="col-md-3">
         <div class="card card-body">
-            <a class="btn btn-warning" href="{% url 'home' %} "></a>
+            <a class="btn btn-warning" href="{% url 'home' %} ">&#8592; Back to profile</a>
+            <hr>
+            <h3 style="text-align:center ;">Account Settings</h3>
+            <hr>
+            <img class="profile-pic" src="" alt="">
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="card card-body">
+            <form method="POST" action="">
+                <input class="btn btn-primary" type="submit" name="Update Information">
+            </form>
         </div>
     </div>
 </div>
+
 {% endblock element%}
