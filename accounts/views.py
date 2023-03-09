@@ -92,6 +92,7 @@ def userPage(request):
     'pending':pending,
     'delivered':delivered,'total_orders':total_orders}
     return render(request,'accounts/user.html', context)
+    
 
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['customer'])
