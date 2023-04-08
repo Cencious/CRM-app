@@ -125,6 +125,13 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
+#SMTP Configuration
+EMAIL_BACKEND = ''
+EMAIL_HOST = ''
+EMAIL_PORT = ''
+EMAIL_USE_TLS = ''
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD =''
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
