@@ -12,7 +12,7 @@ def customer_profile(sender, instance, created, **kwargs):
             
         Customer.objects.create(
             user = instance,
-            name=instance.usename
+            name=instance.username
             )
 
         print('profile created')
